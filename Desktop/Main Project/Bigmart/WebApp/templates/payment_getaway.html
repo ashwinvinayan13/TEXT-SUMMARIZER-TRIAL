@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="text-align:center; background-color:red" >
+   <form method="post" action="#">
+       {% csrf_token %}
+        {{customer.Name}}
+    <button type="submit">
+        Make Payment
+    </button>
+   </form>
+</div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="rzp_test_bXPA97UanCNNtB"
+    data-amount="{{payy_str}}"
+    data-currency="INR"
+    data-order_id="{{payment.order_id}}"
+    data-buttontext=""
+    data-name="BigMart"
+    data-description="Your description"
+    data-image=""
+    data-prefill.name="abc"
+    data-prefill.email="abc@gmail.com"
+    data-theme.color="#4badeb">
+ </script>
+</body>
+</html>

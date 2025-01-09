@@ -23,8 +23,11 @@ urlpatterns=[
     path('View_Contact/', views.View_Contact, name='View_Contact'),
     path('Delete_Contact/<int:p_id>/', views.Delete_Contact, name='Delete_Contact'),
     path('View_Message/', views.View_Message, name='View_Message'),
-    path('Delete_Message/<int:p_id>/', views.Delete_Message, name='Delete_Message')
-
+    path('Delete_Message/<int:p_id>/', views.Delete_Message, name='Delete_Message'),
+    path('view_cart/', views.view_cart, name='view_cart'),
+    path('Delete_cart/<int:d_id>/', views.Delete_cart, name='Delete_cart'),
+    path('View_order/', views.View_order, name='View_order'),
+    path('Delete_order/<int:de_id>/', views.Delete_order, name='Delete_order'),
 
 
 ]

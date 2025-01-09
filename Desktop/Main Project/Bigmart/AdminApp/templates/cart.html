@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card col-12">
+                  <div class="card-header">
+                    <div class="card-title">Basic Table</div>
+                  </div>
+                  <div class="card-body">
+                    <table class="table mt-3">
+                      <thead>
+                        <tr>
+<!--                          <th scope="col">#</th>-->
+                          <th scope="col">Username</th>
+                          <th scope="col">Product Name</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Total Price</th>
+                          <th scope="col">Product Image</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+<!--                          <td>1</td>-->
+                          {% for d in cart %}
+                          <td>{{d.Username}}</td>
+                          <td>{{d.productName}}</td>
+                          <td>{{d.Quantity}}</td>
+                          <td>{{d.Price}}</td>
+                          <td>{{d.TotalPrice}}</td>
+                          <td>{{d.Pro_Image}}</td>
+                          <td><a href="{% url 'Delete_cart' d_id=d.id %}">
+                              <button>DELETE</button>
+                          </a></td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+</body>
+</html>
+{% endblock %}

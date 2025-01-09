@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from datetime import datetime
 from django.contrib import messages
+from WebApp.models import CartDb, OrderDB
 
 
 
@@ -163,3 +164,22 @@ def Delete_Message(request, p_id):
     x = RegisterDB.objects.filter(id=p_id)
     x.delete()
     return redirect(View_Message)
+
+
+def view_cart(request):
+    cart = CartDb.objects.all()
+    return render(request, 'cart.html', {'cart': cart})
+
+def Delete_cart(reqeust, d_id):
+    x = CartDb.objects.filter(id=d_id)
+    x.delete()
+    return redirect(view_cart)
+
+def View_order(reqeust):
+    ord = OrderDB.objects.all()
+    return render(reqeust, 'order.html', {'ord': ord})
+
+def Delete_order(request, de_id):
+    x = OrderDB.objects.filter(id=de_id)
+    x.delete()
+    return redirect(View_order)

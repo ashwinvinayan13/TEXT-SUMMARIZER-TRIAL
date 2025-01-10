@@ -168,7 +168,7 @@ def Delete_Message(request, p_id):
 
 def view_cart(request):
     cart = CartDb.objects.all()
-    return render(request, 'cart.html', {'cart': cart})
+    return render(request, 'Cart.html', {'cart': cart})
 
 def Delete_cart(reqeust, d_id):
     x = CartDb.objects.filter(id=d_id)

@@ -1,0 +1,28 @@
+<!-- static/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sentiment Analyzer</title>
+</head>
+<body>
+  <h1>Sentiment Analyzer</h1>
+  <textarea id="inputText" rows="5" cols="40" placeholder="Type your text here..."></textarea><br>
+  <button onclick="analyze()">Analyze</button>
+  <p id="result"></p>
+
+  <script>
+    async function analyze() {
+      const text = document.getElementById("inputText").value;
+      const response = await fetch("http://127.0.0.1:8000/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: text })
+      });
+
+      const data = await response.json();
+      document.getElementById("result").innerText =
+        `Sentiment: ${data.result[0].label}, Confidence: ${(data.result[0].score * 100).toFixed(2)}%`;
+    }
+  </script>
+</body>
+</html>

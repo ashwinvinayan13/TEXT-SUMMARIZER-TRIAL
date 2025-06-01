@@ -1,26 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>TEXT-SUMMARIZER</title>
+  <meta charset="UTF-8" />
+  <title>Text Summarizer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 25px;
+      color: #333;
+    }
+    textarea {
+      width: 100%;
+      height: 160px;
+      font-size: 1rem;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1.5px solid #ccc;
+      resize: vertical;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #4a90e2;
+    }
+    button {
+      margin-top: 20px;
+      padding: 14px 25px;
+      font-size: 1.1rem;
+      background-color: #4a90e2;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #357ABD;
+    }
+    h3 {
+      margin-top: 30px;
+      color: #444;
+      text-align: left;
+    }
+    #result {
+      margin-top: 10px;
+      min-height: 120px;
+      background: #f0f4ff;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      white-space: pre-wrap;
+      text-align: left;
+      color: #222;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+  </style>
 </head>
 <body>
-  <h1>TEXT-SUMMARIZER</h1>
+  <div class="container">
+    <h1>Text Summarizer</h1>
+    <textarea id="inputText" placeholder="Paste your text here..."></textarea>
+    <button onclick="summarizeText()">Summarize</button>
 
-  <textarea id="inputText" rows="10" cols="100" placeholder="Paste your text here...."></textarea><br><br>
-  <button onclick="summarizeText()">SUMMARIZE</button>
-
-  <h3>Summary:</h3>
-  <div id="result" style="white-space: pre-wrap; border: 1px solid #ccc; padding: 10px;"></div>
+    <h3>Summary:</h3>
+    <div id="result"></div>
+  </div>
 
   <script>
     async function summarizeText() {
       const text = document.getElementById("inputText").value.trim();
+      const resultBox = document.getElementById("result");
 
       if (!text) {
         alert("Please enter some text to summarize.");
         return;
       }
+
+      resultBox.textContent = "Summarizing...";
 
       try {
         const response = await fetch("http://127.0.0.1:8000/summarize", {
@@ -28,18 +103,17 @@
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ text: text })
+          body: JSON.stringify({ text })
         });
 
-        const data = await response.json();
-
-        if (response.ok) {
-          document.getElementById("result").innerText = data.summary;
-        } else {
-          document.getElementById("result").innerText = "Error: " + JSON.stringify(data);
+        if (!response.ok) {
+          throw new Error(`Server returned status ${response.status}`);
         }
+
+        const data = await response.json();
+        resultBox.textContent = data.summary;
       } catch (error) {
-        document.getElementById("result").innerText = "Error: " + error;
+        resultBox.textContent = "Error: " + error.message;
       }
     }
   </script>

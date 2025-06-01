@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card col-12">
+  <form class="forms-sample" method="post" action="{% url 'Save_Products' %}"  enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="exampleFormControlSelect1">Category Name</label><br>
+      <select class="form-select" id="exampleFormControlSelect1" name="category_name">
+          {% for d in name %}
+          <option>{{d.Name}}</option>
+          {% endfor %}
+      </select>
+    <div>
+        <label for="exampleInputName1">Product Name</label>
+        <input type="text" class="form-control" id="exampleInputName1" placeholder="Product Name" name="product_name">
+    </div>
+       <div>
+        <label for="exampleInputName1">Price</label>
+        <input type="text" class="form-control" id="example1" placeholder="Price" name="price">
+    </div>
+      <div class="form-group">
+          <label for="exampleTextarea1">Description</label>
+          <textarea class="form-control" id="exampleTextarea1" rows="4" name="description"></textarea>
+      </div>
+      <div>
+        <label for="exampleInputName1">Quantity</label>
+        <input type="text" class="form-control" id="exampl1" placeholder="Quantity" name="quantity">
+      </div>
+      <div class="form-group">
+          <label>Upload Image</label><br>
+          <input type="file" name="image" class="file-upload-default"><br><br>
+      </div>
+      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+      <button class="btn btn-light">Cancel</button>
+  </form>
+</div>
+</body>
+</html>
+{% endblock %}
